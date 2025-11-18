@@ -621,4 +621,5 @@ MIT License - FIAP 2025
 💙 **EqualMind** | FIAP 2025
 
 </div>
-# Vis-oComputacional-GS
+
+

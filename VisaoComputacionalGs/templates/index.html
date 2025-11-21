@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EqualMind - Análise Emocional Corporativa</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <!-- Header -->
+    <header class="header">
+      <div class="container">
+        <div class="logo">
+          <i class="fas fa-brain"></i>
+          <h1>EqualMind</h1>
+        </div>
+        <nav class="nav">
+          <a href="#registro" class="nav-link active">Registro</a>
+          <a href="#coach" class="nav-link">🤖 Coach IA</a>
+          <a href="#dashboard" class="nav-link">Dashboard</a>
+          <a href="#mapas" class="nav-link">Mapas de Calor</a>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <div class="container">
+        <!-- Banner -->
+        <section class="banner">
+          <h2>🧠 Bem-vindo ao EqualMind</h2>
+          <p>
+            Sistema inteligente de análise emocional corporativa com Deep
+            Learning
+          </p>
+        </section>
+
+        <!-- Seção: Registro Emocional -->
+        <section id="registro" class="section active">
+          <div class="section-header">
+            <h2><i class="fas fa-edit"></i> Registrar Estado Emocional</h2>
+            <p>Compartilhe como você está se sentindo hoje</p>
+          </div>
+
+          <div class="card">
+            <form id="formRegistro">
+              <!-- Seleção de Setor -->
+              <div class="form-group">
+                <label for="setor">
+                  <i class="fas fa-building"></i> Setor
+                </label>
+                <select id="setor" required>
+                  <option value="">Selecione seu setor</option>
+                </select>
+              </div>
+
+              <!-- Colaborador -->
+              <div class="form-group">
+                <label for="colaborador">
+                  <i class="fas fa-user"></i> Colaborador
+                </label>
+                <select id="colaborador" required>
+                  <option value="">Selecione seu nome</option>
+                </select>
+              </div>
+
+              <!-- Nível de Estresse -->
+              <div class="form-group">
+                <label for="estresse">
+                  <i class="fas fa-exclamation-triangle"></i> Nível de Estresse
+                  <span class="nivel-valor" id="valorEstresse">5</span>
+                </label>
+                <input
+                  type="range"
+                  id="estresse"
+                  min="1"
+                  max="10"
+                  value="5"
+                  class="slider slider-estresse"
+                />
+                <div class="slider-labels">
+                  <span>Muito Baixo</span>
+                  <span>Muito Alto</span>
+                </div>
+              </div>
+
+              <!-- Nível de Felicidade -->
+              <div class="form-group">
+                <label for="felicidade">
+                  <i class="fas fa-smile"></i> Nível de Felicidade
+                  <span class="nivel-valor" id="valorFelicidade">5</span>
+                </label>
+                <input
+                  type="range"
+                  id="felicidade"
+                  min="1"
+                  max="10"
+                  value="5"
+                  class="slider slider-felicidade"
+                />
+                <div class="slider-labels">
+                  <span>Muito Baixo</span>
+                  <span>Muito Alto</span>
+                </div>
+              </div>
+
+              <!-- Nível de Ansiedade -->
+              <div class="form-group">
+                <label for="ansiedade">
+                  <i class="fas fa-heart-pulse"></i> Nível de Ansiedade
+                  <span class="nivel-valor" id="valorAnsiedade">5</span>
+                </label>
+                <input
+                  type="range"
+                  id="ansiedade"
+                  min="1"
+                  max="10"
+                  value="5"
+                  class="slider slider-ansiedade"
+                />
+                <div class="slider-labels">
+                  <span>Muito Baixo</span>
+                  <span>Muito Alto</span>
+                </div>
+              </div>
+
+              <!-- Nível de Motivação -->
+              <div class="form-group">
+                <label for="motivacao">
+                  <i class="fas fa-rocket"></i> Nível de Motivação
+                  <span class="nivel-valor" id="valorMotivacao">5</span>
+                </label>
+                <input
+                  type="range"
+                  id="motivacao"
+                  min="1"
+                  max="10"
+                  value="5"
+                  class="slider slider-motivacao"
+                />
+                <div class="slider-labels">
+                  <span>Muito Baixo</span>
+                  <span>Muito Alto</span>
+                </div>
+              </div>
+
+              <!-- Comentário -->
+              <div class="form-group">
+                <label for="comentario">
+                  <i class="fas fa-comment"></i> Como você está se sentindo?
+                  (Opcional)
+                </label>
+                <textarea
+                  id="comentario"
+                  rows="4"
+                  placeholder="Descreva como você está se sentindo hoje..."
+                ></textarea>
+                <small
+                  >💡 Sua mensagem será analisada por IA para detectar
+                  sentimentos</small
+                >
+              </div>
+
+              <!-- Anonimato -->
+              <div class="form-group checkbox-group">
+                <label>
+                  <input type="checkbox" id="anonimo" />
+                  <span>Enviar de forma anônima</span>
+                </label>
+              </div>
+
+              <!-- Botão -->
+              <button type="submit" class="btn btn-primary">
+                <i class="fas fa-paper-plane"></i> Enviar Registro
+              </button>
+            </form>
+
+            <!-- Resultado da Análise -->
+            <div id="resultadoAnalise" class="resultado-analise hidden">
+              <h3>
+                <i class="fas fa-chart-line"></i> Análise do seu Estado
+                Emocional
+              </h3>
+              <div id="conteudoAnalise"></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Seção: Coach Virtual IA -->
+        <section id="coach" class="section">
+          <div class="section-header">
+            <h2>
+              <i class="fas fa-robot"></i> Coach Virtual com IA Generativa
+            </h2>
+            <p>
+              Converse com nosso assistente inteligente para apoio emocional
+            </p>
+          </div>
+
+          <div class="card">
+            <div class="chat-container" id="chatContainer">
+              <div class="chat-messages" id="chatMessages">
+                <div class="chat-message bot-message">
+                  <div class="message-avatar">🤖</div>
+                  <div class="message-content">
+                    <p>
+                      Olá! Sou o Coach Virtual do EqualMind, powered by GPT.
+                      Como posso ajudá-lo hoje?
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="chat-input-container">
+                <textarea
+                  id="chatInput"
+                  rows="2"
+                  placeholder="Digite sua mensagem aqui..."
+                ></textarea>
+                <button id="btnEnviarChat" class="btn btn-primary">
+                  <i class="fas fa-paper-plane"></i> Enviar
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3><i class="fas fa-lightbulb"></i> Sugestões de Conversa</h3>
+            <div class="sugestoes-chat">
+              <button
+                class="btn-sugestao"
+                data-mensagem="Como lidar com estresse no trabalho?"
+              >
+                Como lidar com estresse?
+              </button>
+              <button
+                class="btn-sugestao"
+                data-mensagem="Estou me sentindo desmotivado, o que fazer?"
+              >
+                Como recuperar motivação?
+              </button>
+              <button
+                class="btn-sugestao"
+                data-mensagem="Dicas para melhorar meu bem-estar?"
+              >
+                Dicas de bem-estar
+              </button>
+              <button
+                class="btn-sugestao"
+                data-mensagem="Como equilibrar vida pessoal e profissional?"
+              >
+                Work-life balance
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- Seção: Dashboard -->
+        <section id="dashboard" class="section">
+          <div class="section-header">
+            <h2><i class="fas fa-chart-pie"></i> Dashboard RH</h2>
+            <p>Visão geral da saúde emocional da empresa</p>
+          </div>
+
+          <div class="stats-grid">
+            <div class="stat-card">
+              <i class="fas fa-users"></i>
+              <h3 id="statColaboradores">0</h3>
+              <p>Colaboradores Ativos</p>
+            </div>
+            <div class="stat-card">
+              <i class="fas fa-clipboard-check"></i>
+              <h3 id="statRegistros">0</h3>
+              <p>Registros (30 dias)</p>
+            </div>
+            <div class="stat-card">
+              <i class="fas fa-exclamation-circle"></i>
+              <h3 id="statEstresse">0</h3>
+              <p>Estresse Médio</p>
+            </div>
+            <div class="stat-card">
+              <i class="fas fa-smile-beam"></i>
+              <h3 id="statFelicidade">0</h3>
+              <p>Felicidade Média</p>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3><i class="fas fa-table"></i> Status por Setor</h3>
+            <div id="tabelaDashboard" class="tabela-container">
+              <p class="loading">Carregando dados...</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Seção: Mapas de Calor -->
+        <section id="mapas" class="section">
+          <div class="section-header">
+            <h2><i class="fas fa-fire"></i> Mapas de Calor</h2>
+            <p>Visualização avançada com Deep Learning</p>
+          </div>
+
+          <div class="card">
+            <div class="controles-mapa">
+              <div class="form-group">
+                <label for="metricaMapa">Métrica</label>
+                <select id="metricaMapa">
+                  <option value="estresse">Estresse</option>
+                  <option value="felicidade">Felicidade</option>
+                  <option value="ansiedade">Ansiedade</option>
+                  <option value="motivacao">Motivação</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="diasAnalise">Período</label>
+                <select id="diasAnalise">
+                  <option value="7">Últimos 7 dias</option>
+                  <option value="30" selected>Últimos 30 dias</option>
+                  <option value="60">Últimos 60 dias</option>
+                  <option value="90">Últimos 90 dias</option>
+                </select>
+              </div>
+              <button id="btnGerarMapa" class="btn btn-secondary">
+                <i class="fas fa-sync-alt"></i> Gerar Mapa
+              </button>
+            </div>
+
+            <div id="mapaContainer" class="mapa-container">
+              <p class="info-text">
+                <i class="fas fa-info-circle"></i>
+                Selecione as opções acima e clique em "Gerar Mapa" para
+                visualizar
+              </p>
+            </div>
+          </div>
+
+          <!-- Visualizações Completas -->
+          <div class="card">
+            <h3><i class="fas fa-chart-bar"></i> Visualizações Completas</h3>
+            <button id="btnDashboardCompleto" class="btn btn-primary">
+              <i class="fas fa-chart-line"></i> Gerar Dashboard Completo
+            </button>
+            <div id="visualizacoesCompletas" class="visualizacoes-grid"></div>
+          </div>
+
+          <!-- Relatório IA -->
+          <div class="card">
+            <h3>
+              <i class="fas fa-brain"></i> Relatório Inteligente com IA
+              Generativa
+            </h3>
+            <p>Análise estratégica automática gerada por GPT</p>
+            <button id="btnRelatorioIA" class="btn btn-secondary">
+              <i class="fas fa-magic"></i> Gerar Relatório IA
+            </button>
+            <div id="relatorioIAContainer" class="relatorio-ia-container"></div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <p>
+          &copy; 2025 EqualMind - FIAP | Sistema de Análise Emocional
+          Corporativa
+        </p>
+        <p>
+          <i class="fas fa-heart" style="color: #e74c3c"></i>
+          Desenvolvido com tecnologia e propósito
+        </p>
+      </div>
+    </footer>
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="loading-overlay hidden">
+      <div class="spinner"></div>
+      <p>Processando...</p>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+  </body>
+</html>

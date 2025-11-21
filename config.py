@@ -1,5 +1,5 @@
 """
-EqualMind - Configurações da Aplicação
+Work Well - Configurações da Aplicação
 """
 import os
 from dotenv import load_dotenv

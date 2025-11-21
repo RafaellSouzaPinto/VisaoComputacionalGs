@@ -1,5 +1,5 @@
 """
-EqualMind - Backend Flask
+Work Well - Backend Flask
 Sistema de Análise Emocional Corporativa com Deep Learning
 """
 from flask import Flask, request, jsonify, render_template, send_from_directory
@@ -27,7 +27,7 @@ CORS(app)
 # Conectar ao banco de dados ao iniciar
 try:
     db.connect()
-    logger.info("🚀 EqualMind iniciado com sucesso!")
+    logger.info("🚀 Work Well iniciado com sucesso!")
 except Exception as e:
     logger.error(f"❌ Erro ao conectar ao banco: {e}")
 
@@ -462,5 +462,5 @@ if __name__ == '__main__':
         logger.info("⏹️ Servidor interrompido pelo usuário")
     finally:
         db.disconnect()
-        logger.info("👋 EqualMind encerrado")
+        logger.info("👋 Work Well encerrado")
 

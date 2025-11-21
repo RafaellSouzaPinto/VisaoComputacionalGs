@@ -1,5 +1,5 @@
 """
-EqualMind - Integração com OpenAI GPT (IA Generativa)
+Work Well - Integração com OpenAI GPT (IA Generativa)
 Análise avançada de sentimentos e geração de insights
 """
 import openai

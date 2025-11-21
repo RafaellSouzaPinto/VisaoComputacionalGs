@@ -1,16 +1,36 @@
 """
-EqualMind - Conexão com Oracle Database
+Work Well - Conexão com Oracle Database
 """
-import cx_Oracle
+import oracledb
 from config import Config
 import logging
+import os
 
-# Inicializar Oracle Instant Client
-try:
-    cx_Oracle.init_oracle_client(lib_dir=r"C:\oracle\instantclient_23_4")
-    print("[OK] Oracle Client inicializado")
-except Exception as e:
-    print(f"[INFO] Oracle Client ja inicializado ou erro: {e}")
+# Inicializar Oracle Client de forma flexível
+# O oracledb pode funcionar em modo "thin" (sem Instant Client) ou "thick" (com Instant Client)
+# Primeiro tenta encontrar e usar Instant Client, se não encontrar, usa modo thin automaticamente
+caminhos_possiveis = [
+    r"C:\oracle\instantclient_23_4",
+    r"C:\oracle\instantclient_21_3",
+    r"C:\oracle\instantclient_19_3",
+    os.getenv("ORACLE_HOME", ""),
+    os.getenv("TNS_ADMIN", ""),
+]
+
+inicializado = False
+for caminho in caminhos_possiveis:
+    if caminho and os.path.exists(caminho):
+        try:
+            oracledb.init_oracle_client(lib_dir=caminho)
+            print(f"[OK] Oracle Client inicializado (modo thick): {caminho}")
+            inicializado = True
+            break
+        except Exception as e:
+            continue
+
+if not inicializado:
+    print("[INFO] Oracle Instant Client não encontrado. Usando modo thin (sem Instant Client necessário)")
+    # O oracledb usará modo thin automaticamente na primeira conexão
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -31,11 +51,10 @@ class OracleDB:
     def connect(self):
         """Estabelece conexão com o banco"""
         try:
-            self.connection = cx_Oracle.connect(
+            self.connection = oracledb.connect(
                 user=self.user,
                 password=self.password,
-                dsn=self.dsn,
-                encoding="UTF-8"
+                dsn=self.dsn
             )
             logger.info("Conexao com Oracle estabelecida com sucesso!")
             
@@ -47,7 +66,7 @@ class OracleDB:
                 logger.warning(f"⚠️ Aviso ao criar tabelas (continuando): {e}")
             
             return self.connection
-        except cx_Oracle.Error as error:
+        except oracledb.Error as error:
             logger.error(f"Erro ao conectar ao Oracle: {error}")
             raise
     
@@ -73,7 +92,7 @@ class OracleDB:
             
             cursor.close()
             return results
-        except cx_Oracle.Error as error:
+        except oracledb.Error as error:
             logger.error(f"Erro ao executar query: {error}")
             raise
     
@@ -85,7 +104,7 @@ class OracleDB:
             self.connection.commit()
             cursor.close()
             return True
-        except cx_Oracle.Error as error:
+        except oracledb.Error as error:
             logger.error(f"Erro ao executar INSERT: {error}")
             self.connection.rollback()
             raise
@@ -163,7 +182,7 @@ class OracleDB:
             cursor = self.connection.cursor()
             
             # Variável de saída para capturar o ID gerado
-            registro_id_var = cursor.var(cx_Oracle.NUMBER)
+            registro_id_var = cursor.var(oracledb.NUMBER)
             
             # SQL de inserção com RETURNING para obter o ID gerado
             sql = """
@@ -195,7 +214,7 @@ class OracleDB:
             logger.info(f"[OK] Registro emocional inserido com sucesso (ID: {registro_id})")
             return registro_id
             
-        except cx_Oracle.Error as e:
+        except oracledb.Error as e:
             logger.error(f"[ERRO] Ao inserir registro emocional: {e}")
             self.connection.rollback()
             raise
@@ -223,7 +242,7 @@ class OracleDB:
             self.connection.commit()
             logger.info(f"[OK] Sentimento atualizado para registro {registro_id}")
             
-        except cx_Oracle.Error as e:
+        except oracledb.Error as e:
             logger.error(f"[ERRO] Ao atualizar sentimento: {e}")
             self.connection.rollback()
             raise

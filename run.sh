@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo "=========================================="
-echo "   EqualMind - Iniciando Aplicação"
+echo "   Work Well - Iniciando Aplicação"
 echo "=========================================="
 echo ""
 

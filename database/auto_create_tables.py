@@ -1,7 +1,7 @@
 """
-Cria automaticamente as tabelas do EqualMind com sufixo _WorkWell
+Cria automaticamente as tabelas do Work Well com sufixo _WorkWell
 """
-import cx_Oracle
+import oracledb
 from config import Config
 import logging
 
@@ -26,7 +26,7 @@ def insert_initial_data(cursor, connection):
         """)
         connection.commit()
         logger.info("✅ Empresa inserida")
-    except cx_Oracle.Error as e:
+    except oracledb.Error as e:
         error_obj, = e.args
         if error_obj.code == 1:  # Unique constraint violation
             logger.info("ℹ️ Empresa já existe")
@@ -51,7 +51,7 @@ def insert_initial_data(cursor, connection):
             """, (empresa_id, nome, descricao))
             connection.commit()
             logger.info(f"✅ Setor '{nome}' inserido")
-        except cx_Oracle.Error as e:
+        except oracledb.Error as e:
             error_obj, = e.args
             if error_obj.code == 1:  # Unique constraint violation
                 logger.info(f"ℹ️ Setor '{nome}' já existe")
@@ -75,7 +75,7 @@ def insert_initial_data(cursor, connection):
             """, (empresa_id, setor_id, codigo))
             connection.commit()
             logger.info(f"✅ Colaborador '{codigo}' inserido")
-        except cx_Oracle.Error as e:
+        except oracledb.Error as e:
             error_obj, = e.args
             if error_obj.code == 1:  # Unique constraint violation
                 logger.info(f"ℹ️ Colaborador '{codigo}' já existe")
@@ -154,7 +154,7 @@ def create_tables_if_not_exist(connection):
             cursor.execute(sql)
             connection.commit()
             logger.info(f"✅ Tabela {i}/4 ({table_name}) criada com sucesso")
-        except cx_Oracle.Error as e:
+        except oracledb.Error as e:
             error_obj, = e.args
             if error_obj.code == 955:  # Tabela já existe
                 logger.info(f"ℹ️ Tabela {i}/4 ({table_name}) já existe (pulando)")

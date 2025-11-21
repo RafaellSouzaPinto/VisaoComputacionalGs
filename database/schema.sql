@@ -1,5 +1,5 @@
 -- =====================================================
--- EqualMind - Schema Oracle Database (REFERÊNCIA)
+-- Work Well - Schema Oracle Database (REFERÊNCIA)
 -- Sistema de Análise Emocional Corporativa
 -- =====================================================
 -- 

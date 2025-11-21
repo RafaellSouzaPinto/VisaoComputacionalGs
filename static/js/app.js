@@ -1,5 +1,5 @@
 /**
- * EqualMind - Frontend JavaScript
+ * Work Well - Frontend JavaScript
  * Sistema de Análise Emocional Corporativa
  */
 
@@ -15,7 +15,7 @@ const EMPRESA_ID = 1; // ID da empresa padrão (FIAP)
 // =====================================================
 
 document.addEventListener("DOMContentLoaded", () => {
-  console.log("🚀 EqualMind iniciado!");
+  console.log("🚀 Work Well iniciado!");
 
   // Inicializar componentes
   inicializarNavegacao();
@@ -868,4 +868,4 @@ function mostrarRelatorioIA(relatorio) {
 // Export (se necessário)
 // =====================================================
 
-console.log("✅ EqualMind carregado e pronto para uso!");
+console.log("✅ Work Well carregado e pronto para uso!");

@@ -48,7 +48,7 @@ def analisar_e_exibir(analyzer, texto, esperado=None):
 
 # ==================== INÍCIO DOS TESTES ====================
 
-print_header("🧠 TESTE COMPLETO DO MODELO BERT - EqualMind")
+print_header("🧠 TESTE COMPLETO DO MODELO BERT - Work Well")
 print(f"Data/Hora: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
 
 try:

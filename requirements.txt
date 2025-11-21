@@ -1,4 +1,4 @@
-# EqualMind - Análise Emocional Corporativa
+# Work Well - Análise Emocional Corporativa
 # Dependências do Projeto
 
 # Framework Web
@@ -6,7 +6,7 @@ Flask==3.0.0
 Flask-CORS==4.0.0
 
 # Banco de Dados Oracle
-cx_Oracle==8.3.0
+oracledb>=2.0.0
 python-dotenv==1.0.0
 
 # Deep Learning e NLP (Análise de Sentimento)

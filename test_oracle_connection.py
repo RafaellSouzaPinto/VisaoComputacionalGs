@@ -1,26 +1,42 @@
 """
 Teste de conexão com Oracle Database da FIAP
 """
-import cx_Oracle
+import oracledb
 from config import Config
+import os
 
-# Inicializar Oracle Client explicitamente
-try:
-    cx_Oracle.init_oracle_client(lib_dir=r"C:\oracle\instantclient_23_4")
-    print("Oracle Client inicializado: C:\\oracle\\instantclient_23_4")
-except Exception as e:
-    print(f"Aviso ao inicializar Oracle Client: {e}")
+# Inicializar Oracle Client de forma flexível
+caminhos_possiveis = [
+    r"C:\oracle\instantclient_23_4",
+    r"C:\oracle\instantclient_21_3",
+    r"C:\oracle\instantclient_19_3",
+    os.getenv("ORACLE_HOME", ""),
+    os.getenv("TNS_ADMIN", ""),
+]
+
+inicializado = False
+for caminho in caminhos_possiveis:
+    if caminho and os.path.exists(caminho):
+        try:
+            oracledb.init_oracle_client(lib_dir=caminho)
+            print(f"Oracle Client inicializado (modo thick): {caminho}")
+            inicializado = True
+            break
+        except Exception:
+            continue
+
+if not inicializado:
+    print("Oracle Instant Client não encontrado. Usando modo thin (sem Instant Client necessário)")
 
 print("Testando conexao com Oracle Database da FIAP...")
 print(f"User: {Config.ORACLE_USER}")
 print(f"DSN: {Config.ORACLE_DSN}")
 
 try:
-    connection = cx_Oracle.connect(
+    connection = oracledb.connect(
         user=Config.ORACLE_USER,
         password=Config.ORACLE_PASSWORD,
-        dsn=Config.ORACLE_DSN,
-        encoding="UTF-8"
+        dsn=Config.ORACLE_DSN
     )
     print("==> CONEXAO ESTABELECIDA COM SUCESSO!")
     
@@ -48,7 +64,7 @@ try:
     connection.close()
     print("\n==> Teste concluido com sucesso!")
     
-except cx_Oracle.Error as error:
+except oracledb.Error as error:
     error_obj, = error.args
     print(f"\n==> ERRO AO CONECTAR:")
     print(f"   Codigo: {error_obj.code}")

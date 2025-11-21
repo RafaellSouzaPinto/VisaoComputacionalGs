@@ -1,4 +1,4 @@
-# 🧠 EqualMind - Análise Emocional Corporativa com IA
+# 🧠 Work Well - Análise Emocional Corporativa com IA
 
 ![Python](https://img.shields.io/badge/Python-3.9+-blue.svg)
 ![Flask](https://img.shields.io/badge/Flask-3.0.0-green.svg)
@@ -276,7 +276,7 @@ Ao iniciar, você verá logs como:
 ```
 🔄 Carregando modelo de Deep Learning: neuralmind/bert-base-portuguese-cased
 ✅ Modelo BERT carregado com sucesso (pipeline sentiment-analysis)
-🚀 EqualMind iniciado com sucesso!
+🚀 Work Well iniciado com sucesso!
 ```
 
 **Verificar status da API:**
@@ -400,7 +400,7 @@ GET  /api/health                   # Status do sistema
 
 ### ⚠️ IMPORTANTE: BERT NÃO É SEPARADO!
 
-O modelo **BERT está totalmente integrado** ao sistema EqualMind. Ele funciona **automaticamente** quando você usa a aplicação - você não precisa fazer nada especial!
+O modelo **BERT está totalmente integrado** ao sistema Work Well. Ele funciona **automaticamente** quando você usa a aplicação - você não precisa fazer nada especial!
 
 ### 🔄 Como o BERT Funciona no Sistema
 
@@ -409,7 +409,7 @@ O modelo **BERT está totalmente integrado** ao sistema EqualMind. Ele funciona 
 ```
 🔄 Carregando modelo de Deep Learning: neuralmind/bert-base-portuguese-cased
 ✅ Modelo BERT carregado com sucesso
-🚀 EqualMind iniciado com sucesso!
+🚀 Work Well iniciado com sucesso!
 ```
 
 - O BERT é carregado **automaticamente** ao iniciar o servidor Flask
@@ -618,7 +618,7 @@ MIT License - FIAP 2025
 
 "A tecnologia não substitui o humano, mas potencializa o cuidado."
 
-💙 **EqualMind** | FIAP 2025
+💙 **Work Well** | FIAP 2025
 
 </div>
 # Vis-oComputacional-GS

@@ -1,5 +1,5 @@
 """
-Script de teste da API EqualMind
+Script de teste da API Work Well
 Execute: python test_api.py
 """
 import requests
@@ -161,7 +161,7 @@ def test_recomendacoes_ia():
 
 def main():
     print("=" * 60)
-    print("  🧠 EqualMind - Teste da API")
+    print("  🧠 Work Well - Teste da API")
     print("=" * 60)
     print("\n⚠️  Certifique-se de que o servidor está rodando!")
     print("   Execute: python app.py")

@@ -1,6 +1,6 @@
 @echo off
 echo ==========================================
-echo    EqualMind - Iniciando Aplicacao
+echo    Work Well - Iniciando Aplicacao
 echo ==========================================
 echo.
 

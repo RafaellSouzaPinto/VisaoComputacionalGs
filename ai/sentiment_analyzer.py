@@ -1,5 +1,5 @@
 """
-EqualMind - Análise de Sentimento com Deep Learning
+Work Well - Análise de Sentimento com Deep Learning
 Utiliza modelos transformer para português (BERT) + OpenAI GPT
 """
 import logging

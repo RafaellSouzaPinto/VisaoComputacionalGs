@@ -1,5 +1,5 @@
 """
-EqualMind - Gerador de Mapas de Calor
+Work Well - Gerador de Mapas de Calor
 Cria visualizações avançadas usando Deep Learning patterns
 """
 import matplotlib.pyplot as plt
@@ -235,7 +235,7 @@ class HeatmapGenerator:
             for i, v in enumerate(felicidade):
                 ax2.text(v + 0.2, i, f'{v:.1f}', va='center', fontweight='bold')
             
-            plt.suptitle('Análise Emocional Corporativa - EqualMind', 
+            plt.suptitle('Análise Emocional Corporativa - Work Well', 
                         fontsize=16, fontweight='bold', y=0.98)
             plt.tight_layout()
             
